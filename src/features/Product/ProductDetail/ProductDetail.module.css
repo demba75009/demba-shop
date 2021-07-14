@@ -1,0 +1,26 @@
+.box {
+
+width : 30%;
+
+
+}
+
+.imgD{
+
+    width: 50%;
+    margin : 5px;
+    border: solid;
+}
+
+.Ecran {
+
+
+    float: right;
+
+    width:50%
+}
+
+.text{
+
+    float: right;
+}

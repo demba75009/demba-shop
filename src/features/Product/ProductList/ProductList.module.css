@@ -1,0 +1,55 @@
+.panier{
+
+padding-top: 20px;
+}
+
+
+@keyframes panier {
+
+    from {
+        transform: translateX(50px);
+      }
+      to {}
+}
+
+
+@keyframes product1 {
+
+    from {
+        transform: translateY(50px);
+      }
+      to {
+
+
+        transform: translateY(0px);
+
+
+      }
+}
+
+
+.myElement{
+
+  
+    animation: panier; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 3s; /* don't forget to set a duration! */
+
+}
+
+
+.promo{
+
+background-image: url('https://m1.lmcdn.fr/media/1/5d697af4b7c505196cf8332a/.jpg');
+
+}
+
+.product1{
+
+  
+    animation: product1; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 3s; /* don't forget to set a duration! */
+
+}
+
+
+
