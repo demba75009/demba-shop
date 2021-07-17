@@ -5,7 +5,9 @@ import axios from "axios";
 class AddProduct extends Component {
   submit = (values, actions) => {
     const Produit = values;
-
+    if (Produit.promo === "true") {
+      Produit.place = 0;
+    }
     axios
       .post(
         "https://text-bcfd3-default-rtdb.firebaseio.com/Product.json",
@@ -22,8 +24,6 @@ class AddProduct extends Component {
     }, 1000);
 
     this.props.history.push("/Product");
-
-
   };
 
   render() {
@@ -42,7 +42,7 @@ class AddProduct extends Component {
             prix: 0,
             promo: "false",
             pourcentage: 0,
-            newprice: 0
+            newprice: 0,
           }}
         >
           {({
@@ -127,13 +127,10 @@ class AddProduct extends Component {
                   onBlur={handleBlur}
                   value={values.promo}
                 >
-
-                        <option value="false">false</option>
-                        <option value="true">true</option>
-                    </select>
-
+                  <option value="false">false</option>
+                  <option value="true">true</option>
+                </select>
               </div>
-
 
               <div className="form-group">
                 <label>Si Promo pourcentage</label>
@@ -158,7 +155,6 @@ class AddProduct extends Component {
                   value={values.newprice}
                 />
               </div>
-
 
               <button
                 type="submit"

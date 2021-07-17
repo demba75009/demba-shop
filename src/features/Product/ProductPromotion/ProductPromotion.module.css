@@ -1,0 +1,21 @@
+.prev {
+  animation: prev1;
+  animation-duration: 1s;
+}
+
+@keyframes prev1 {
+  from {
+    transform: translateX(50px);
+  }
+}
+
+.next {
+  animation: next;
+  animation-duration: 1s;
+}
+
+@keyframes next {
+  from {
+    transform: translateX(-50px);
+  }
+}

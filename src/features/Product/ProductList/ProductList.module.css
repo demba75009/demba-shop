@@ -1,55 +1,62 @@
-.panier{
-
-padding-top: 20px;
+.nbPanier {
+  border: 1px solid black;
+  background-color: red;
+  color: aliceblue;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
+.title {
+  border: 1px solid black;
+  width: 50%;
+  margin: auto;
+}
+
+.nbPanier:hover {
+  background-color: aqua;
+}
+
+.panier {
+  padding-top: 20px;
+}
 
 @keyframes panier {
-
-    from {
-        transform: translateX(50px);
-      }
-      to {}
+  from {
+    transform: translateX(50px);
+  }
+  to {
+  }
 }
 
+@keyframes promo {
+  from {
+    transform: translateY(-100px);
+  }
+  to {
+  }
+}
 
 @keyframes product1 {
-
-    from {
-        transform: translateY(50px);
-      }
-      to {
-
-
-        transform: translateY(0px);
-
-
-      }
+  from {
+    transform: translateY(50px);
+  }
+  to {
+    transform: translateY(0px);
+  }
 }
 
-
-.myElement{
-
-  
-    animation: panier; /* referring directly to the animation's @keyframe declaration */
-    animation-duration: 3s; /* don't forget to set a duration! */
-
+.myElement {
+  animation: panier; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 3s; /* don't forget to set a duration! */
 }
 
-
-.promo{
-
-background-image: url('https://m1.lmcdn.fr/media/1/5d697af4b7c505196cf8332a/.jpg');
-
+.promo {
+  animation: promo;
+  animation-duration: 2s;
+  background-image: url("https://m1.lmcdn.fr/media/1/5d697af4b7c505196cf8332a/.jpg");
 }
 
-.product1{
-
-  
-    animation: product1; /* referring directly to the animation's @keyframe declaration */
-    animation-duration: 3s; /* don't forget to set a duration! */
-
+.product1 {
+  animation: product1; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 3s; /* don't forget to set a duration! */
 }
-
-
-

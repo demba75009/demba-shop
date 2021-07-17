@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Service from "../../../config/Api.Config";
-
+import Style from "./ProductPromotion.module.css";
 import PromotionItem from "./PromotionItem/PromotionItem";
 
 import * as axios from "axios";
@@ -11,8 +11,8 @@ class ProductPromotion extends Component {
     this.state = {
       ProductPromo: [],
 
-      promo : 1,
-      place: 1
+      promo: 1,
+      place: 1,
     };
   }
 
@@ -20,8 +20,7 @@ class ProductPromotion extends Component {
     axios
       .get("https://text-bcfd3-default-rtdb.firebaseio.com/Product.json")
       .then((response) => {
-
-        let promo ;
+        let promo;
         console.log(response.data);
         const FetchData = [];
 
@@ -37,72 +36,75 @@ class ProductPromotion extends Component {
           ProductPromo: FetchData,
         });
 
-
         console.log(this.state.ProductPromo);
       });
   }
 
-
   prevPromo = (place) => {
+    this.setState({ place: this.state.place - 1 });
 
-
-    this.setState({place : this.state.place  - 1  })
-    
-    console.log(this.state.place)
-      }
-
+    console.log(this.state.place);
+  };
 
   nextPromo = (place) => {
+    this.setState({ place: this.state.place + 1 });
 
+    console.log(this.state.place);
+  };
 
-this.setState({place : this.state.place + 1  })
+  AddPanier = (title) => {
+    const product = {
+      ...this.state.Product.find((P) => P.title === title),
+    };
+    this.setState(
+      (state) => ({
+        Panier: [...this.state.Panier, product],
+      }),
+      this.savePanier
+    );
+  };
 
-console.log(this.state.place)
-  }
+  savePanier = () => {
+    Service.put("Panier.json", this.state.Panier)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
 
   render() {
     return (
-
       <div className="ProductPromotion">
-      <div className="d-flex justify-content-center ">
-        
-        {
-
-          this.state.ProductPromo.filter((p)=> 
-            p.promo === "true" &&
-            p.place === this.state.place,
-
-            ).map((P) => (
-
-            <PromotionItem  
-            key = {P.id}
-
-            title = {P.title}
-            img = {P.img}
-            prix = {P.prix}
-            place =  {P.place}
-            newprice = {P.newprice}
-            pourcentage = {P.pourcentage}
-            description = {P.description}
-
+        <div className="d-flex justify-content-center ">
+          {this.state.ProductPromo.filter(
+            (p) => p.promo === "true" && p.place === this.state.place
+          ).map((P) => (
+            <PromotionItem
+              key={P.id}
+              title={P.title}
+              img={P.img}
+              prix={P.prix}
+              place={P.place}
+              newprice={P.newprice}
+              pourcentage={P.pourcentage}
+              Add={() => P.AddPanier(P.title)}
             />
+          ))}
+        </div>
 
+        <button
+          className={` btn btn-primary ${Style.prev}`}
+          onClick={this.prevPromo}
+        >
+          Previous
+        </button>
 
-          ))
-
-         
-
-        }
-      </div>
-
-
-<button className= " btn btn-primary" onClick = {this.prevPromo}>Previous</button>
-
-
-
-<button className= "float-right btn btn-success" onClick = {this.nextPromo}>Next</button>
-
-
+        <button
+          className={`float-right btn btn-success ${Style.next}`}
+          onClick={this.nextPromo}
+        >
+          Next
+        </button>
       </div>
     );
   }
