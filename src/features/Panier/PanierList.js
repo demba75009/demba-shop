@@ -10,6 +10,7 @@ class PanierList extends Component {
 
     this.state = {
       Panier: [],
+      total: 0,
     };
   }
 
@@ -55,13 +56,14 @@ class PanierList extends Component {
       <div className="PanierList">
         {this.state.Panier.map((P) => (
           <Panier
-          key={P.id}
-          title={P.title}
-          img={P.img}
-          prix={P.prix}
-          DeletePanier={this.DeletePanier}
+            key={P.id}
+            title={P.title}
+            img={P.img}
+            prix={P.prix}
+            DeletePanier={this.DeletePanier}
           />
         ))}
+        total : {this.state.total}
       </div>
     );
   }

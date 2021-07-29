@@ -13,6 +13,7 @@ class ProductList extends Component {
     this.state = {
       Product: [],
       Panier: [],
+      total: 0,
     };
   }
 
@@ -48,6 +49,9 @@ class ProductList extends Component {
         }
 
         this.setState({ Panier: FetchPanier });
+
+        const tt = FetchPanier.reduce((acc, p) => (acc += p.prix), 0);
+        this.setState({ total: tt });
       })
       .catch((err) => console.log(err));
   }
@@ -111,7 +115,6 @@ class ProductList extends Component {
               {this.state.Panier.length}
             </strong>
           </h3>
-
           {this.state.Panier.map((P) => (
             <Panier
               className="float-right"
@@ -122,6 +125,7 @@ class ProductList extends Component {
               DeletePanier={this.DeletePanier}
             />
           ))}
+          total : {this.state.total} €
         </div>
 
         <div className={` ${Style.product1} w-75 ListProduct`}>

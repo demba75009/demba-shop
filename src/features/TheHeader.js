@@ -28,7 +28,7 @@ const TheHeader = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div show className={` ${show ? "show" : ""}collapse navbar-collapse`}>
+        <div className={` ${show ? "show" : ""}collapse navbar-collapse`}>
           <ul className="navbar-nav mr-auto">
             <li className="nav-item" onClick={() => setShow(!show)}>
               <NavLink className="nav-link" to="/AddProduct">

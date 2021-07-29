@@ -1,26 +1,41 @@
 .box {
-
-width : 30%;
-
-
+  width: 30%;
 }
 
-.imgD{
+button {
+  cursor: pointer;
+}
+.prix {
+  color: red;
 
-    width: 50%;
-    margin : 5px;
-    border: solid;
+  padding-top: 170px;
+}
+.img2 {
+  width: 50%;
+  margin: 5px;
+  border: solid;
+  cursor: pointer;
+}
+
+.imgD {
+  width: 50%;
+  margin: 5px;
+  border: solid;
+  cursor: pointer;
 }
 
 .Ecran {
+  padding-top: 30px;
+  float: right;
 
-
-    float: right;
-
-    width:50%
+  width: 20%;
 }
 
-.text{
+.text {
+  float: right;
+}
 
-    float: right;
+.product {
+  padding-top: 50px;
+  padding-left: 10px;
 }
