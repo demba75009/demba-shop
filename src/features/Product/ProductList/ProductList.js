@@ -5,7 +5,7 @@ import Service from "../../../config/Api.Config";
 import axios from "axios";
 import ProductPromotion from "../ProductPromotion/ProductPromotion";
 import Style from "./ProductList.module.css";
-
+import { display }from '../modal'
 class ProductList extends Component {
   constructor(props) {
     super(props);
@@ -66,12 +66,15 @@ class ProductList extends Component {
       }),
       this.savePanier
     );
+
   };
 
   savePanier = () => {
     Service.put("Panier.json", this.state.Panier)
       .then((res) => {
         console.log(res.data);
+        this.componentDidMount()
+
       })
       .catch((err) => console.log(err));
   };
@@ -80,19 +83,27 @@ class ProductList extends Component {
     this.props.history.push(`/Product/ProductDetail/?id=${id}`);
   };
 
-  DeletePanier = (title) => {
+  DeletePanier = async (title) => {
+    const resultat = await display("Vous en etes sur");
+    if(resultat === true)
+    {
     const index = this.state.Panier.findIndex((p) => p.title === title);
 
     this.setState((state) => ({
       Panier: this.state.Panier.filter((_, i) => i !== index),
     }));
 
-    Service.put("Panier.json", this.state.Panier)
+    Service.delete("Panier.json", this.state.Panier)
       .then((res) => {
         console.log(res);
         console.log(res.data);
+        this.componentDidMount()
+ 
       })
       .catch((err) => console.log(err));
+    
+    }
+
   };
 
   render() {
@@ -115,7 +126,10 @@ class ProductList extends Component {
               {this.state.Panier.length}
             </strong>
           </h3>
+          <h4 className ="text-danger">total : {this.state.total.toFixed(2)} €</h4>
+
           {this.state.Panier.map((P) => (
+            
             <Panier
               className="float-right"
               key={P.id}
@@ -125,7 +139,6 @@ class ProductList extends Component {
               DeletePanier={this.DeletePanier}
             />
           ))}
-          total : {this.state.total} €
         </div>
 
         <div className={` ${Style.product1} w-75 ListProduct`}>

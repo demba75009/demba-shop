@@ -8,7 +8,7 @@ button {
 .prix {
   color: red;
 
-  padding-top: 170px;
+  padding-top: 100px;
 }
 .img2 {
   width: 50%;
@@ -16,6 +16,8 @@ button {
   border: solid;
   cursor: pointer;
 }
+
+
 
 .imgD {
   width: 50%;
@@ -25,17 +27,25 @@ button {
 }
 
 .Ecran {
-  padding-top: 30px;
+  padding-top: 10px;
   float: right;
 
   width: 20%;
 }
+
+.Ecran1 {
+ visibility: hidden;
+}
+
+
+
+
 
 .text {
   float: right;
 }
 
 .product {
-  padding-top: 50px;
+  padding-top: 30px;
   padding-left: 10px;
 }

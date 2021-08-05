@@ -1,0 +1,22 @@
+.calc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.modal {
+    background: white;
+    min-width: 30rem;
+    border-radius: 3px;
+    padding: 5rem;
+    box-shadow: var(--box-shadow);
+    text-align: center;
+  
+  }

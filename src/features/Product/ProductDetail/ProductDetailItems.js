@@ -5,7 +5,7 @@ export default class ProductDetailsItems extends Component {
     super(props);
 
     this.state = {
-      show: false,
+      show: true,
     };
   }
 
@@ -18,12 +18,15 @@ export default class ProductDetailsItems extends Component {
   render() {
     return (
       <div className={Style.product}>
-        <h3 className="text-center"> {this.props.title}</h3>
-        <img className={`${Style.Ecran} `} src={this.props.img} />
+                <h3 className="text-center"> {this.props.title}</h3>
 
-        <img className={`${Style.Ecran}`} src={this.props.img2} />
+       
         <div className={` ${Style.box}  `}>
-          <img className={Style.imgD} src={this.props.img} />
+
+          <img
+          onClick={() => this.changeShow()}
+
+          className={Style.imgD} src={this.props.img} />
 
           <img
             onClick={() => this.changeShow()}
@@ -31,6 +34,11 @@ export default class ProductDetailsItems extends Component {
             src={this.props.img2}
           />
         </div>
+
+        <img className={`${this.state.show ? Style.Ecran : Style.Ecran1} `} src={this.props.img}/>
+
+        <img className={`${!this.state.show ? Style.Ecran : Style.Ecran1} `} src={this.props.img2} />
+
         <h3 className={`${Style.prix} text-danger`}>
           Prix: {this.props.prix} €
         </h3>

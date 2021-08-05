@@ -10,6 +10,7 @@ class ProductPromotion extends Component {
 
     this.state = {
       ProductPromo: [],
+      Panier:[],
 
       promo: 1,
       place: 1,
@@ -38,6 +39,30 @@ class ProductPromotion extends Component {
 
         console.log(this.state.ProductPromo);
       });
+
+
+      axios
+      .get("https://text-bcfd3-default-rtdb.firebaseio.com/Panier.json")
+      .then((response) => {
+        let panier;
+        console.log(response.data);
+        const FetchPanier = [];
+
+        for (let key in response.data) {
+          FetchPanier.unshift({
+            ...response.data[key],
+
+            id: key,
+          });
+        }
+
+        this.setState({
+          Panier: FetchPanier,
+        });
+
+      });
+
+
   }
 
   prevPromo = (place) => {
@@ -53,9 +78,8 @@ class ProductPromotion extends Component {
   };
 
   AddPanier = (title) => {
-    const product = {
-      ...this.state.Product.find((P) => P.title === title),
-    };
+    const product = this.state.ProductPromo.find((P)=>P.title===title)
+    
     this.setState(
       (state) => ({
         Panier: [...this.state.Panier, product],
@@ -87,7 +111,7 @@ class ProductPromotion extends Component {
               place={P.place}
               newprice={P.newprice}
               pourcentage={P.pourcentage}
-              Add={() => P.AddPanier(P.title)}
+              AddPanier={() => this.AddPanier(P.title)}
             />
           ))}
         </div>
