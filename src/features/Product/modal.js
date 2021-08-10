@@ -9,7 +9,7 @@ const body = document.querySelector("html");
 const createCalc = () => {
 
 calc = document.createElement("div");
-calc.classList.add("bg-dark")
+calc.classList.add("calc")
 
 
 

@@ -35,11 +35,7 @@ const TheHeader = () => {
                 AddProduct
               </NavLink>
             </li>
-            <li className="nav-item" onClick={() => setShow(!show)}>
-              <NavLink className="nav-link" to="/Product/ProductDetail">
-                ProductDetail
-              </NavLink>
-            </li>
+           
           </ul>
           <ul className="navbar-nav">
             <li className="nav-item" onClick={() => setShow(!show)}>

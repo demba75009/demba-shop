@@ -2,7 +2,6 @@ import axios from "axios";
 import { stat } from "fs";
 import React, { Component } from "react";
 import Service from "../../config/Api.Config";
-
 import Panier from "./PanierItem/PanierItem";
 class PanierList extends Component {
   constructor(props) {

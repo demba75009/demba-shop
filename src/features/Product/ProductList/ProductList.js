@@ -5,7 +5,9 @@ import Service from "../../../config/Api.Config";
 import axios from "axios";
 import ProductPromotion from "../ProductPromotion/ProductPromotion";
 import Style from "./ProductList.module.css";
-import { display }from '../modal'
+import { display }from '../modal';
+import Style2 from "../modal.module.css"
+
 class ProductList extends Component {
   constructor(props) {
     super(props);
@@ -131,7 +133,7 @@ class ProductList extends Component {
           {this.state.Panier.map((P) => (
             
             <Panier
-              className="float-right"
+              className={`float-right ${Style2.calc}`}
               key={P.id}
               title={P.title}
               img={P.img}
