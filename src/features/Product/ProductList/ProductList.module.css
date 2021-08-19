@@ -5,10 +5,14 @@
   border-radius: 50%;
   cursor: pointer;
 }
+h4 {
+  display: inline-block;
+}
 
 .title {
   border: 1px solid black;
-  width: 50%;
+  width: 40%;
+
   margin: auto;
 }
 

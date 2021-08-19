@@ -10,10 +10,10 @@ class ProductPromotion extends Component {
 
     this.state = {
       ProductPromo: [],
-      Panier:[],
+      Panier: [],
 
-      promo: 1,
-      place: 1,
+      promo: 0,
+      place: 2,
     };
   }
 
@@ -40,8 +40,7 @@ class ProductPromotion extends Component {
         console.log(this.state.ProductPromo);
       });
 
-
-      axios
+    axios
       .get("https://text-bcfd3-default-rtdb.firebaseio.com/Panier.json")
       .then((response) => {
         let panier;
@@ -59,27 +58,24 @@ class ProductPromotion extends Component {
         this.setState({
           Panier: FetchPanier,
         });
-
       });
-
-
   }
 
   prevPromo = (place) => {
-    this.setState({ place: this.state.place - 1 });
+    this.setState({ place: --this.state.place });
 
     console.log(this.state.place);
   };
 
   nextPromo = (place) => {
-    this.setState({ place: this.state.place + 1 });
+    this.setState({ place: ++this.state.place });
 
     console.log(this.state.place);
   };
 
   AddPanier = (title) => {
-    const product = this.state.ProductPromo.find((P)=>P.title===title)
-    
+    const product = this.state.ProductPromo.find((P) => P.title === title);
+
     this.setState(
       (state) => ({
         Panier: [...this.state.Panier, product],
@@ -91,7 +87,10 @@ class ProductPromotion extends Component {
   savePanier = () => {
     Service.put("Panier.json", this.state.Panier)
       .then((res) => {
-        console.log(res.data);
+        {
+          console.log(res.data);
+          alert("Produit ajouter au panier");
+        }
       })
       .catch((err) => console.log(err));
   };
@@ -115,16 +114,23 @@ class ProductPromotion extends Component {
             />
           ))}
         </div>
-
         <button
-          className={` btn btn-primary ${Style.prev}`}
+          className={` ${
+            this.state.place > 1
+              ? `btn btn-primary ${Style.prev}`
+              : `${Style.prevHide}`
+          }`}
           onClick={this.prevPromo}
         >
           Previous
         </button>
 
         <button
-          className={`float-right btn btn-success ${Style.next}`}
+          className={`${
+            this.state.place < 3
+              ? `float-right btn btn-success ${Style.next}`
+              : `${Style.prevHide}`
+          }`}
           onClick={this.nextPromo}
         >
           Next

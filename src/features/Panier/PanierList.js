@@ -52,7 +52,9 @@ class PanierList extends Component {
 
   render() {
     return (
-      <div className="PanierList">
+      <div className="PanierList ">
+        <h2 className="text-center text-success">Votre Panier:</h2>
+        <hr className="w-50"></hr>
         {this.state.Panier.map((P) => (
           <Panier
             key={P.id}
@@ -62,7 +64,11 @@ class PanierList extends Component {
             DeletePanier={this.DeletePanier}
           />
         ))}
-        total : {this.state.total}
+
+        <h4 className="text-right text-danger">
+          {" "}
+          Total : {this.state.total.toFixed(2)} €
+        </h4>
       </div>
     );
   }

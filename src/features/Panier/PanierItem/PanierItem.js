@@ -3,28 +3,22 @@ import Style from "./PanierItem.module.css";
 
 const Panier = (props) => {
   return (
-  
-        <div
-          className={`${Style.item} w-50  bg-light card  `}
-        >
-          <div className="flex-fill d-flex flex-column p-3">
-            <h6> {props.title}</h6>
+    <div className={`${Style.item} w-50  bg-light card  `}>
+      <div className="flex-fill d-flex flex-column p-3">
+        <h6> {props.title}</h6>
 
-            <img src={props.img} />
+        <img src={props.img} />
 
-            <p className="text-danger"> {props.prix} €</p>
-          </div>
+        <p className="text-danger"> {props.prix} €</p>
+      </div>
 
-
-          
-          <button
-            className="btn-outline-danger"
-            onClick={() => props.DeletePanier()}
-          >
-            Delete
-          </button>
-        </div>
-    
+      <button
+        className="btn-outline-danger"
+        onClick={() => props.DeletePanier()}
+      >
+        <i class="fas fa-trash"></i>{" "}
+      </button>
+    </div>
   );
 };
 

@@ -82,6 +82,15 @@ class ProductDetail extends Component {
             AddPanier={() => this.AddPanier(p.title)}
           />
         ))}
+
+        <button
+          onClick={() => {
+            this.props.history.go(-1);
+          }}
+          className={`btn btn-outline-info`}
+        >
+          <i class="far fa-hand-point-left"></i>
+        </button>
       </div>
     );
   }

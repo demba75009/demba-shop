@@ -5,8 +5,8 @@ import Service from "../../../config/Api.Config";
 import axios from "axios";
 import ProductPromotion from "../ProductPromotion/ProductPromotion";
 import Style from "./ProductList.module.css";
-import { display }from '../modal';
-import Style2 from "../modal.module.css"
+import { display } from "../modal";
+import Style2 from "../modal.module.css";
 
 class ProductList extends Component {
   constructor(props) {
@@ -68,15 +68,13 @@ class ProductList extends Component {
       }),
       this.savePanier
     );
-
   };
 
   savePanier = () => {
     Service.put("Panier.json", this.state.Panier)
       .then((res) => {
         console.log(res.data);
-        this.componentDidMount()
-
+        this.componentDidMount();
       })
       .catch((err) => console.log(err));
   };
@@ -87,51 +85,55 @@ class ProductList extends Component {
 
   DeletePanier = async (title) => {
     const resultat = await display("Vous en etes sur");
-    if(resultat === true)
-    {
-    const index = this.state.Panier.findIndex((p) => p.title === title);
+    if (resultat === true) {
+      const index = this.state.Panier.findIndex((p) => p.title === title);
 
-    this.setState((state) => ({
-      Panier: this.state.Panier.filter((_, i) => i !== index),
-    }));
+      this.setState((state) => ({
+        Panier: this.state.Panier.filter((_, i) => i !== index),
+      }));
 
-    Service.delete("Panier.json", this.state.Panier)
-      .then((res) => {
-        console.log(res);
-        console.log(res.data);
-        this.componentDidMount()
- 
-      })
-      .catch((err) => console.log(err));
-    
+      Service.put("Panier.json", this.state.Panier)
+        .then((res) => {
+          console.log(res);
+          console.log(res.data);
+          this.componentDidMount();
+          alert("Produit Supprimer :(");
+        })
+        .catch((err) => console.log(err));
     }
-
   };
 
   render() {
     return (
       <div className="ProductList">
         <div className={`Promotion  ${Style.promo} `}>
+          <br></br>
           <h2 className={`text-center text-white bg-info ${Style.title}`}>
             {" "}
-            Promotion:
+            Promotion :
           </h2>
           <ProductPromotion />
         </div>
         <hr></hr>
 
         <div className={`w-25 float-right ${Style.myElement}`}>
-          <h3>
-            {" "}
-            <i class="fas fa-shopping-cart"></i> :
+          <button
+            className="btn btn-outline-warning"
+            onClick={() => this.props.history.push("Panier")}
+          >
+            <i class="fas fa-shopping-cart"></i>:
+          </button>
+          <h4>
             <strong className={Style.nbPanier}>
               {this.state.Panier.length}
             </strong>
-          </h3>
-          <h4 className ="text-danger">total : {this.state.total.toFixed(2)} €</h4>
+          </h4>
+          <br></br>
+          <h4 className="text-danger">
+            total : {this.state.total.toFixed(2)} €
+          </h4>
 
           {this.state.Panier.map((P) => (
-            
             <Panier
               className={`float-right ${Style2.calc}`}
               key={P.id}

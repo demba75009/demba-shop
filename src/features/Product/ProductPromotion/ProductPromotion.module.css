@@ -3,6 +3,10 @@
   animation-duration: 1s;
 }
 
+.prevHide {
+  visibility: hidden;
+}
+
 @keyframes prev1 {
   from {
     transform: translateX(50px);
