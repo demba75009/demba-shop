@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Style from "./ProductItem.module.css";
 import * as axios from "axios";
 
+
 const ProductItem = (props) => {
   return (
     <div className={`${Style.Box}  bg-light card`}>
@@ -23,7 +24,7 @@ const ProductItem = (props) => {
       <hr className="bg-dark"></hr>
 
       <button
-        className="btn-outline-success  w-50"
+        className="btn-outline-success add  w-50"
         onClick={() => props.AddPanier()}
       >
         <i class="fas fa-cart-plus"></i>{" "}

@@ -9,7 +9,6 @@ button {
 .prix {
   color: red;
 
-  padding-top: 100px;
 }
 .img2 {
   width: 50%;
@@ -25,15 +24,17 @@ button {
   cursor: pointer;
 }
 
-.Ecran {
-  padding-top: 10px;
-  float: right;
 
-  width: 20%;
+.Ecran {
+  float: right;
+display: inline-block;
+  width: 25%;
 }
 
 .Ecran1 {
   visibility: hidden;
+  width: 50%;
+  display: inline-block;
 }
 
 .text {

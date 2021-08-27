@@ -10,6 +10,7 @@ class ProductDetail extends Component {
       Product: [],
       Panier: [],
       indexselected: "",
+      img:""
     };
   }
 
@@ -66,6 +67,14 @@ class ProductDetail extends Component {
       .catch((err) => console.log(err));
   };
 
+  
+  changeShow = () => {
+    this.state.show = !this.state.show;
+
+    console.log(this.state.show);
+  };
+
+
   render() {
     return (
       <div className="ProductDetail">
@@ -75,8 +84,9 @@ class ProductDetail extends Component {
           <ProductDetailItems
             key={p.id}
             title={p.title}
-            img={p.img}
+            img={p.img }
             img2={p.img2}
+        
             description={p.description}
             prix={p.prix}
             AddPanier={() => this.AddPanier(p.title)}
