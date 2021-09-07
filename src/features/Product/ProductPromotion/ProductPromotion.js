@@ -11,9 +11,9 @@ class ProductPromotion extends Component {
     this.state = {
       ProductPromo: [],
       Panier: [],
-
+      pr:[],
       promo: 0,
-      place: 2,
+      place: 3,
     };
   }
 
@@ -61,6 +61,8 @@ class ProductPromotion extends Component {
       });
   }
 
+  
+
   prevPromo = (place) => {
     this.setState({ place: --this.state.place });
 
@@ -99,7 +101,7 @@ class ProductPromotion extends Component {
     return (
       <div className="ProductPromotion">
         <div className="d-flex justify-content-center ">
-          {this.state.ProductPromo.filter(
+          {this.state.pr = this.state.ProductPromo.filter(
             (p) => p.promo === "true" && p.place === this.state.place
           ).map((P) => (
             <PromotionItem
@@ -112,8 +114,17 @@ class ProductPromotion extends Component {
               pourcentage={P.pourcentage}
               AddPanier={() => this.AddPanier(P.title)}
             />
-          ))}
+
+         
+            )
+            
+            
+            )
+
+          
+          }
         </div>
+
         <button
           className={` ${
             this.state.place > 1
@@ -127,7 +138,9 @@ class ProductPromotion extends Component {
 
         <button
           className={`${
-            this.state.place < 3
+    
+            
+            this.state.place < this.state.ProductPromo.length - 7
               ? `float-right btn btn-success ${Style.next}`
               : `${Style.prevHide}`
           }`}

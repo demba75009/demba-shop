@@ -5,7 +5,7 @@ import * as axios from "axios";
 
 const ProductItem = (props) => {
   return (
-    <div className={`${Style.Box}  bg-light card`}>
+    <div className={`${Style.Box}  card`}>
       <div className="flex-fill d-flex flex-column p-3">
         <h6> {props.title}</h6>
 

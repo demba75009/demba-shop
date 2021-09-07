@@ -9,9 +9,15 @@
   width: 150px;
   height: 400px;
   
+  
 }
 
 .Box:hover {
   border: 1px solid blue;
   transform: scale(1.1);
+}
+
+.add:active{
+
+  background-color: green;
 }

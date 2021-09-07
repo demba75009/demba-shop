@@ -44,6 +44,7 @@ return new Promise ((resolve,reject)=>{
 
     calc.addEventListener("click", ()=>{
 
+
         resolve(false)
         calc.remove()
     

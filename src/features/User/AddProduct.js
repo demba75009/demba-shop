@@ -1,12 +1,51 @@
 import { Formik } from "formik";
 import React, { Component } from "react";
 import axios from "axios";
+import Service from "../../config/Api.Config"
 
 class AddProduct extends Component {
+
+  constructor(props){
+
+    super(props)
+
+    this.state = {
+
+      Product:[]
+    }
+  }
+
+
+  componentDidMount(){
+
+    Service.get("Product.json").then(
+(res) => {
+
+const prod = []
+  
+for(let key in res.data)
+prod.unshift({
+
+...res.data[key],
+id:key
+
+})
+
+this.setState({Product:prod})
+
+console.log(this.state.Product);
+
+}
+    )
+
+
+  }
+
   submit = (values, actions) => {
     const Produit = values;
     if (Produit.promo === "true") {
-      Produit.place = 0;
+      Produit.place = Produit.promo.length + 2 
+      ;
     }
     axios
       .post(
@@ -69,7 +108,8 @@ class AddProduct extends Component {
               </div>
               <div className="form-group">
                 <label>Descritiption</label>
-                <input
+                <textarea
+                style={{width: 200 }}
                   type="text"
                   name="description"
                   className="form-control"

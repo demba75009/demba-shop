@@ -1,5 +1,4 @@
 import axios from "axios";
-import { stat } from "fs";
 import React, { Component } from "react";
 import Service from "../../config/Api.Config";
 import Panier from "./PanierItem/PanierItem";
@@ -28,6 +27,10 @@ class PanierList extends Component {
         }
 
         this.setState({ Panier: panier });
+        const tt = panier.reduce((acc, p) => (acc += p.prix), 0);
+        this.setState({total:tt})
+
+        console.log(this.state.Panier);
       })
       .catch((err) => console.log(err));
   }
@@ -55,13 +58,13 @@ class PanierList extends Component {
       <div className="PanierList ">
         <h2 className="text-center text-success">Votre Panier:</h2>
         <hr className="w-50"></hr>
-        {this.state.Panier.map((P) => (
+        {this.state.Panier.map((P,index) => (
           <Panier
             key={P.id}
             title={P.title}
             img={P.img}
             prix={P.prix}
-            DeletePanier={this.DeletePanier}
+            DeletePanier={()=>this.DeletePanier(P.title)}
           />
         ))}
 

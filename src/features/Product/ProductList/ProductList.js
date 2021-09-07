@@ -5,8 +5,8 @@ import Service from "../../../config/Api.Config";
 import axios from "axios";
 import ProductPromotion from "../ProductPromotion/ProductPromotion";
 import Style from "./ProductList.module.css";
-import { display } from "../modal";
 import Style2 from "../modal.module.css";
+import ModalApp from "../../ModalApp";
 
 class ProductList extends Component {
   constructor(props) {
@@ -15,7 +15,10 @@ class ProductList extends Component {
     this.state = {
       Product: [],
       Panier: [],
+      PanierDelete: false,
       total: 0,
+      calc: true,
+      question: "Etes vous sur de vouloir supprimer l'article du Panier ?",
     };
   }
 
@@ -58,6 +61,23 @@ class ProductList extends Component {
       .catch((err) => console.log(err));
   }
 
+  annuler = () => {
+    this.setState({ calc: false });
+    this.setState({ PanierDelete: false });
+  };
+
+  Valider = (title) => {
+    this.DeletePanier(title);
+    this.annuler();
+
+  };
+
+  ChangeState = (title) => {
+    this.setState({ PanierDelete: true });
+    this.setState({ calc: true });
+
+  };
+
   AddPanier = (title) => {
     const product = {
       ...this.state.Product.find((P) => P.title === title),
@@ -84,28 +104,29 @@ class ProductList extends Component {
   };
 
   DeletePanier = async (title) => {
-    const resultat = await display("Vous en etes sur");
-    if (resultat === true) {
-      const index = this.state.Panier.findIndex((p) => p.title === title);
+    const index = this.state.Panier.findIndex((p) => p.title === title);
 
-      this.setState((state) => ({
-        Panier: this.state.Panier.filter((_, i) => i !== index),
-      }));
+    this.setState((state) => ({
+      Panier: this.state.Panier.filter((_, i) => i !== index),
+    }));
 
-      Service.put("Panier.json", this.state.Panier)
-        .then((res) => {
-          console.log(res);
-          console.log(res.data);
-          this.componentDidMount();
-          alert("Produit Supprimer :(");
-        })
-        .catch((err) => console.log(err));
-    }
+    this.SuppPanier();
+  };
+
+  SuppPanier = () => {
+    Service.put("Panier.json", this.state.Panier)
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+        alert("Produit Supprimer :(");
+
+      })
+      .catch((err) => console.log(err));
   };
 
   render() {
     return (
-      <div className="ProductList">
+      <div className="ProductList ">
         <div className={`Promotion  ${Style.promo} `}>
           <br></br>
           <h2 className={`text-center text-white bg-info ${Style.title}`}>
@@ -116,35 +137,48 @@ class ProductList extends Component {
         </div>
         <hr></hr>
 
-        <div className={`w-25 float-right ${Style.myElement}`}>
-          <button
-            className="btn btn-outline-warning"
-            onClick={() => this.props.history.push("Panier")}
-          >
-            <i class="fas fa-shopping-cart"></i>:
-          </button>
-          <h4>
-            <strong className={Style.nbPanier}>
-              {this.state.Panier.length}
-            </strong>
-          </h4>
-          <br></br>
-          <h4 className="text-danger">
-            total : {this.state.total.toFixed(2)} €
-          </h4>
-
-          {this.state.Panier.map((P) => (
-            <Panier
-              className={`float-right ${Style2.calc}`}
-              key={P.id}
-              title={P.title}
-              img={P.img}
-              prix={P.prix}
-              DeletePanier={this.DeletePanier}
+        {this.state.PanierDelete  ? (
+          this.state.Panier.map((P) => (
+            <ModalApp
+              question={this.state.question}
+              calc={this.state.calc}
+              annuler={this.annuler}
+              Valider={() => this.Valider(P.title)}
             />
-          ))}
-        </div>
+          ))
+        ) : (
+          <>
+            <div className={`w-25 float-right ${Style.myElement}`}>
+              <button
+                className="btn btn-outline-warning"
+                onClick={() => this.props.history.push("Panier")}
+              >
+                <i class="fas fa-shopping-cart"></i>:
+              </button>
+              <h4>
+                <strong className={Style.nbPanier}>
+                  {this.state.Panier.length}
+                </strong>
+              </h4>
+              <br></br>
+              <h4 className="text-danger">
+                total : {this.state.total.toFixed(2)} €
+              </h4>
 
+              {this.state.Panier.map((P) => (
+                <Panier
+                  className={`float-right ${Style2.calc}`}
+                  key={P.id}
+                  title={P.title}
+                  img={P.img}
+                  prix={P.prix}
+                  ChangeState={() => {
+                    this.ChangeState(P.title);
+                  }}
+                />
+              ))}
+            </div>
+       
         <div className={` ${Style.product1} w-75 ListProduct`}>
           <h3> Liste des Product:</h3>
 
@@ -159,6 +193,8 @@ class ProductList extends Component {
             />
           ))}
         </div>
+        </>
+        )}
       </div>
     );
   }

@@ -5,7 +5,10 @@ import {
   ProductList,
   ProductDetail,
   PanierList,
+  
 } from "./features";
+
+import ModalApp from "./features/ModalApp";
 import {
   BrowserRouter as Router,
   Route,
@@ -26,6 +29,9 @@ class App extends Component {
             <Switch>
               <Route exact path="/AddProduct" component={AddProduct} />
               <Route exact path="/Product" component={ProductList} />
+           
+              <Route exact path="/Modal" component={ModalApp} />
+
               <Route
                 exact
                 path="/Product/ProductDetail"

@@ -14,7 +14,7 @@ const Panier = (props) => {
 
       <button
         className="btn-outline-danger"
-        onClick={() => props.DeletePanier()}
+        onClick={() => props.ChangeState()}
       >
         <i class="fas fa-trash"></i>{" "}
       </button>
