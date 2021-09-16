@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Service from "../../../config/Api.Config";
+import Confirmation from "../../ModalApp";
 
 import ProductDetailItems from "./ProductDetailItems";
 class ProductDetail extends Component {
@@ -10,7 +11,10 @@ class ProductDetail extends Component {
       Product: [],
       Panier: [],
       indexselected: "",
-      img:""
+      img: "",
+      Ajouter: false,
+      calc: true,
+      question: "Article Ajouter Au Panier :)",
     };
   }
 
@@ -57,6 +61,9 @@ class ProductDetail extends Component {
   }
 
   AddPanier = (title) => {
+    this.setState({ Ajouter: true });
+    this.setState({ calc: true });
+
     const Product = {
       ...this.state.Product.find((P) => P.title === title),
     };
@@ -67,31 +74,44 @@ class ProductDetail extends Component {
       .catch((err) => console.log(err));
   };
 
-  
   changeShow = () => {
     this.state.show = !this.state.show;
 
     console.log(this.state.show);
   };
 
+  Valider2 = () => {
+    this.setState({ Ajouter: false });
+    this.setState({ calc: false });
+  };
 
   render() {
     return (
       <div className="ProductDetail">
-        {this.state.Product.filter(
-          (e) => e.id === this.state.indexselected
-        ).map((p) => (
-          <ProductDetailItems
-            key={p.id}
-            title={p.title}
-            img={p.img }
-            img2={p.img2}
-        
-            description={p.description}
-            prix={p.prix}
-            AddPanier={() => this.AddPanier(p.title)}
+        {this.state.Ajouter ? (
+          <Confirmation
+            question={this.state.question}
+            calc={this.state.calc}
+            Valider2={() => this.Valider2()}
           />
-        ))}
+        ) : (
+          this.state.Product.filter(
+            (e) => e.id === this.state.indexselected
+          ).map((p) => (
+            <ProductDetailItems
+              key={p.id}
+              title={p.title}
+              img={p.img}
+              img2={p.img2}
+              description={p.description}
+              prix={p.prix}
+              promo={p.promo}
+              newprice={p.newprice}
+              pourcentage={p.pourcentage}
+              AddPanier={() => this.AddPanier(p.title)}
+            />
+          ))
+        )}
 
         <button
           onClick={() => {

@@ -11,7 +11,7 @@ class ProductPromotion extends Component {
     this.state = {
       ProductPromo: [],
       Panier: [],
-      pr:[],
+      pr: [],
       promo: 0,
       place: 3,
     };
@@ -61,8 +61,6 @@ class ProductPromotion extends Component {
       });
   }
 
-  
-
   prevPromo = (place) => {
     this.setState({ place: --this.state.place });
 
@@ -73,6 +71,10 @@ class ProductPromotion extends Component {
     this.setState({ place: ++this.state.place });
 
     console.log(this.state.place);
+  };
+
+  detail = (id) => {
+    this.props.history.push(`/Product/ProductDetail/?id=${id}`);
   };
 
   AddPanier = (title) => {
@@ -101,27 +103,21 @@ class ProductPromotion extends Component {
     return (
       <div className="ProductPromotion">
         <div className="d-flex justify-content-center ">
-          {this.state.pr = this.state.ProductPromo.filter(
-            (p) => p.promo === "true" && p.place === this.state.place
-          ).map((P) => (
-            <PromotionItem
-              key={P.id}
-              title={P.title}
-              img={P.img}
-              prix={P.prix}
-              place={P.place}
-              newprice={P.newprice}
-              pourcentage={P.pourcentage}
-              AddPanier={() => this.AddPanier(P.title)}
-            />
-
-         
-            )
-            
-            
-            )
-
-          
+          {
+            (this.state.pr = this.state.ProductPromo.filter(
+              (p) => p.promo === "true" && p.place === this.state.place
+            ).map((P) => (
+              <PromotionItem
+                key={P.id}
+                title={P.title}
+                img={P.img}
+                prix={P.prix}
+                place={P.place}
+                newprice={P.newprice}
+                pourcentage={P.pourcentage}
+                AddPanier={() => this.AddPanier(P.title)}
+              />
+            )))
           }
         </div>
 
@@ -138,9 +134,7 @@ class ProductPromotion extends Component {
 
         <button
           className={`${
-    
-            
-            this.state.place < this.state.ProductPromo.length - 7
+            this.state.place < this.state.ProductPromo.length - 3
               ? `float-right btn btn-success ${Style.next}`
               : `${Style.prevHide}`
           }`}

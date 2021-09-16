@@ -6,7 +6,7 @@ import axios from "axios";
 import ProductPromotion from "../ProductPromotion/ProductPromotion";
 import Style from "./ProductList.module.css";
 import Style2 from "../modal.module.css";
-import ModalApp from "../../ModalApp";
+import Confirmation from "../../ModalApp";
 
 class ProductList extends Component {
   constructor(props) {
@@ -15,10 +15,10 @@ class ProductList extends Component {
     this.state = {
       Product: [],
       Panier: [],
-      PanierDelete: false,
-      total: 0,
+      Ajouter: false,
       calc: true,
-      question: "Etes vous sur de vouloir supprimer l'article du Panier ?",
+      question: "Article Ajouter Au Panier :)",
+      total: 0,
     };
   }
 
@@ -63,22 +63,31 @@ class ProductList extends Component {
 
   annuler = () => {
     this.setState({ calc: false });
-    this.setState({ PanierDelete: false });
+    this.setState({ Ajouter: false });
+  };
+
+  Valider2 = () => {
+    this.annuler();
   };
 
   Valider = (title) => {
     this.DeletePanier(title);
     this.annuler();
-
   };
 
   ChangeState = (title) => {
-    this.setState({ PanierDelete: true });
-    this.setState({ calc: true });
+    // this.setState({ PanierDelete: true });
+    // this.setState({ calc: true });
+    const confirmation = window.confirm(
+      "Etes vous sur de vouloir supprimer l'article ?"
+    );
 
+    if (confirmation) this.DeletePanier(title);
   };
 
   AddPanier = (title) => {
+    this.setState({ Ajouter: true });
+    this.setState({ calc: true });
     const product = {
       ...this.state.Product.find((P) => P.title === title),
     };
@@ -103,13 +112,12 @@ class ProductList extends Component {
     this.props.history.push(`/Product/ProductDetail/?id=${id}`);
   };
 
-  DeletePanier = async (title) => {
+  DeletePanier = (title) => {
     const index = this.state.Panier.findIndex((p) => p.title === title);
 
     this.setState((state) => ({
       Panier: this.state.Panier.filter((_, i) => i !== index),
     }));
-
     this.SuppPanier();
   };
 
@@ -118,8 +126,8 @@ class ProductList extends Component {
       .then((res) => {
         console.log(res);
         console.log(res.data);
-        alert("Produit Supprimer :(");
 
+        alert("Produit Supprimer :(");
       })
       .catch((err) => console.log(err));
   };
@@ -137,15 +145,12 @@ class ProductList extends Component {
         </div>
         <hr></hr>
 
-        {this.state.PanierDelete  ? (
-          this.state.Panier.map((P) => (
-            <ModalApp
-              question={this.state.question}
-              calc={this.state.calc}
-              annuler={this.annuler}
-              Valider={() => this.Valider(P.title)}
-            />
-          ))
+        {this.state.Ajouter ? (
+          <Confirmation
+            question={this.state.question}
+            calc={this.state.calc}
+            Valider2={() => this.Valider2()}
+          />
         ) : (
           <>
             <div className={`w-25 float-right ${Style.myElement}`}>
@@ -172,28 +177,34 @@ class ProductList extends Component {
                   title={P.title}
                   img={P.img}
                   prix={P.prix}
+                  promo={P.promo}
+                  newprice={P.newprice}
+                  pourcentage={P.pourcentage}
                   ChangeState={() => {
                     this.ChangeState(P.title);
                   }}
                 />
               ))}
             </div>
-       
-        <div className={` ${Style.product1} w-75 ListProduct`}>
-          <h3> Liste des Product:</h3>
 
-          {this.state.Product.map((P) => (
-            <ProductItem
-              key={P.id}
-              title={P.title}
-              img={P.img}
-              prix={P.prix}
-              AddPanier={() => this.AddPanier(P.title)}
-              Detail={() => this.Detail(P.id)}
-            />
-          ))}
-        </div>
-        </>
+            <div className={` ${Style.product1} w-75 ListProduct`}>
+              <h3> Liste des Product:</h3>
+
+              {this.state.Product.map((P) => (
+                <ProductItem
+                  key={P.id}
+                  title={P.title}
+                  img={P.img}
+                  prix={P.prix}
+                  promo={P.promo}
+                  newprice={P.newprice}
+                  pourcentage={P.pourcentage}
+                  AddPanier={() => this.AddPanier(P.title)}
+                  Detail={() => this.Detail(P.id)}
+                />
+              ))}
+            </div>
+          </>
         )}
       </div>
     );

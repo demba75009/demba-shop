@@ -13,9 +13,8 @@
   border: 1px solid blue;
   transform: scale(1.1);
 }
-
 .prix {
-  text-decoration: line-through;
+  text-decoration: line-through red;
 }
 
 @keyframes promo {

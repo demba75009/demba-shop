@@ -12,12 +12,13 @@ const PromotionItem = (props) => {
 
         <img src={props.img} />
 
-        <p className={`${Style.prix}`}> {props.prix} € </p>
-        <strong className="text-danger text-right">
+        <p className={Style.prix}> {props.prix} € </p>
+        <strong className="text-success text-right">
           -{props.pourcentage}%
         </strong>
-        <p className={`text-success `}> {props.newprice} €</p>
+        <p className={`text-danger `}> {props.newprice} €</p>
       </div>
+
       <button className="btn-outline-success" onClick={() => props.AddPanier()}>
         <i class="fas fa-cart-plus"></i>
       </button>
