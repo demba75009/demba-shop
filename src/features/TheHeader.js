@@ -44,8 +44,23 @@ const TheHeader = () => {
               </NavLink>
             </li>
           </ul>
+
+  <ul className="navbar-nav">
+            <li className="nav-item" onClick={() => setShow(!show)}>
+            <a className="nav-link" href="https://fr.linkedin.com/in/demba-kante-68510714b">
+              <i className="fab fa-linkedin text-primary"></i>
+              </a>
+            </li>
+          </ul>
+
+
+
         </div>
+
+
       </nav>
+      <h6 className = "animate__animated animate__heartBeat animate__infinite">Kante Demba</h6>
+
     </div>
   );
 };
